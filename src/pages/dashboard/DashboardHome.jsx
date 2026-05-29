@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Calendar, Clock, Activity, FileText, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import FloatingHomeButton from '../../components/FloatingHomeButton';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -100,6 +101,7 @@ const DashboardHome = () => {
           </div>
         </div>
       </div>
+            <FloatingHomeButton />
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
-    { name: 'Services', path: '/services' },
+    // { name: 'Services', path: '/services' },
     { name: 'Find a Doctor', path: '/doctors' },
     { name: 'Contact', path: '/contact' }
   ];
@@ -45,7 +45,7 @@ const Navbar = () => {
             </span>
             <span className="flex items-center space-x-2">
               <Phone className="w-3.5 h-3.5 text-secondary" />
-              <span className="text-secondary font-semibold">+12-823-611-8721</span>
+              <span className="text-secondary font-semibold">+234-803-611-8721</span>
             </span>
           </div>
         </div>

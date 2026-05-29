@@ -83,7 +83,7 @@ const Home = () => {
             <div className="relative hidden lg:block h-[600px] animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               {/* Main Image */}
               <div className="absolute right-0 top-10 w-[85%] h-[90%] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
-                <img src="https://images.unsplash.com/photo-1612349317150-e410f624c427?auto=format&fit=crop&w=1000&q=80" alt="ApexCare Doctor" className="w-full h-full object-cover" />
+                <img src="https://cdn.prod.website-files.com/66bd394eedeb9d6ee29898c6/682f5450a046c241920c1e6f_Three%20doctors%20standing%20side%20by%20side%2C%20crossing%20their%20arms.jpg" alt="ApexCare Doctor" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
               </div>
 
