@@ -1,0 +1,38 @@
+[
+  {
+    "id": "doc1",
+    "name": "Dr. Sarah Jenkins",
+    "specialty": "Cardiologist",
+    "bio": "Dr. Jenkins has over 15 years of experience in treating cardiovascular diseases and is a leading expert in preventive cardiology.",
+    "experience": "15 Years",
+    "availability": "Mon, Wed, Fri",
+    "image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "id": "doc2",
+    "name": "Dr. Michael Chen",
+    "specialty": "Neurologist",
+    "bio": "Specializing in neurological disorders, Dr. Chen brings a compassionate approach to treating migraines, epilepsy, and stroke recovery.",
+    "experience": "10 Years",
+    "availability": "Tue, Thu",
+    "image": "https://images.unsplash.com/photo-1612349317150-e410f624c427?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "id": "doc3",
+    "name": "Dr. Emily Rodriguez",
+    "specialty": "Pediatrician",
+    "bio": "Dr. Rodriguez is dedicated to the health and well-being of children, offering comprehensive care from infancy through adolescence.",
+    "experience": "8 Years",
+    "availability": "Mon - Fri",
+    "image": "https://images.unsplash.com/photo-1594824436998-d8ac6134b223?auto=format&fit=crop&w=500&q=80"
+  },
+  {
+    "id": "doc4",
+    "name": "Dr. James Wilson",
+    "specialty": "Orthopedic Surgeon",
+    "bio": "Expert in sports medicine and joint replacements, helping patients regain mobility and live pain-free lives.",
+    "experience": "20 Years",
+    "availability": "Wed, Fri",
+    "image": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80"
+  }
+]

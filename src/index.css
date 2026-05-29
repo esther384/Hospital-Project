@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0f172a; /* Premium Navy */
+  --color-primary-light: #1e293b; /* Lighter Navy */
+  --color-secondary: #06b6d4; /* Vibrant Cyan */
+  --color-secondary-dark: #0891b2; /* Darker Cyan */
+  --color-accent: #38bdf8; /* Light Blue Accent */
+}
+
+@layer base {
+  body {
+    @apply antialiased text-slate-800 bg-slate-50;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  .glass-dark {
+    @apply bg-slate-900/80 backdrop-blur-md border border-slate-700/50 shadow-xl;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent;
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
