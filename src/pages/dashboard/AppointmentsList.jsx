@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, XCircle, CheckCircle2 } from 'lucide-react';
 import { getAppointmentsByPatientId, updateAppointmentStatus, getDoctors } from '../../services/firebaseServices';
 import { useAuth } from '../../context/AuthContext';
+import Modal from '../../components/Modal';
 
 const AppointmentCard = ({ appointment, onCancel, doctorsData }) => {
   const doctor = doctorsData.find(d => d.id === appointment.doctorId);
-  
-  if (!doctor) return null;
+  const isUpcoming = appointment.status?.toLowerCase() === 'upcoming';
 
-  const isUpcoming = appointment.status.toLowerCase() === 'upcoming';
+  // Render even if doctor data isn't loaded yet
+  const doctorName = doctor?.name || appointment.doctorName || 'Unknown Doctor';
+  const doctorSpecialty = doctor?.specialty || '';
+  const doctorImage = doctor?.imageUrl || doctor?.image || `https://i.pravatar.cc/80?u=${appointment.doctorId}`;
 
   return (
     <div className={`bg-white rounded-2xl shadow-sm border p-6 flex flex-col md:flex-row gap-6 ${isUpcoming ? 'border-primary/30 shadow-primary/5' : 'border-gray-100'}`}>
       <div className="flex-shrink-0">
         <img 
-          src={doctor.image} 
-          alt={doctor.name} 
+          src={doctorImage} 
+          alt={doctorName} 
           className="w-20 h-20 rounded-xl object-cover"
         />
       </div>
@@ -24,8 +27,8 @@ const AppointmentCard = ({ appointment, onCancel, doctorsData }) => {
         <div>
           <div className="flex justify-between items-start mb-2">
             <div>
-              <h3 className="text-xl font-bold text-gray-900">{doctor.name}</h3>
-              <p className="text-primary font-medium">{doctor.specialty}</p>
+              <h3 className="text-xl font-bold text-gray-900">{doctorName}</h3>
+              <p className="text-primary font-medium">{doctorSpecialty}</p>
             </div>
             <div>
               <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize flex items-center ${
@@ -76,6 +79,7 @@ const AppointmentsList = () => {
   const [doctorsData, setDoctorsData] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [confirmModal, setConfirmModal] = useState({ open: false, appointmentId: null });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,16 +100,20 @@ const AppointmentsList = () => {
     fetchData();
   }, [user]);
 
-  const cancelAppointment = async (id) => {
-    if (window.confirm('Are you sure you want to cancel this appointment?')) {
-      try {
-        await updateAppointmentStatus(id, 'Cancelled');
-        setAppointments(appointments.map(app => 
-          app.id === id ? { ...app, status: 'Cancelled' } : app
-        ));
-      } catch (error) {
-        console.error("Error cancelling", error);
-      }
+  const cancelAppointment = (id) => {
+    setConfirmModal({ open: true, appointmentId: id });
+  };
+
+  const handleConfirmCancel = async () => {
+    try {
+      await updateAppointmentStatus(confirmModal.appointmentId, 'Cancelled');
+      setAppointments(appointments.map(app =>
+        app.id === confirmModal.appointmentId ? { ...app, status: 'Cancelled' } : app
+      ));
+    } catch (error) {
+      console.error("Error cancelling", error);
+    } finally {
+      setConfirmModal({ open: false, appointmentId: null });
     }
   };
 
@@ -116,6 +124,16 @@ const AppointmentsList = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <Modal
+        open={confirmModal.open}
+        type="confirm"
+        title="Cancel Appointment?"
+        message="Are you sure you want to cancel this appointment? This cannot be undone."
+        confirmText="Yes, Cancel"
+        cancelText="Keep"
+        onClose={() => setConfirmModal({ open: false, appointmentId: null })}
+        onConfirm={handleConfirmCancel}
+      />
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Appointments</h1>

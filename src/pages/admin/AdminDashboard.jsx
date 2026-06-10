@@ -209,14 +209,16 @@ const AdminDashboard = () => {
                         {row.patientName || row.patient || "Unknown"}
                       </td>
                       <td className="px-6 py-4 text-slate-500">
-                        {row.doctorName || row.doctor || "TBD"}
+                        {row.doctorName || row.doctor || (row.doctorId ? `ID: ${row.doctorId}` : "TBD")}
                       </td>
                       <td className="px-6 py-4 text-slate-500">
                         {row.scheduledAt
                           ? row.scheduledAt.toDate
                             ? row.scheduledAt.toDate().toLocaleString()
                             : new Date(row.scheduledAt).toLocaleString()
-                          : "TBD"}
+                          : (row.date && row.time)
+                            ? `${row.date} ${row.time}`
+                            : "TBD"}
                       </td>
                       <td className="px-6 py-4 text-right">
                         <span

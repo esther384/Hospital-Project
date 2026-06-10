@@ -2,16 +2,9 @@ import React, { useState } from 'react';
 import { Calendar, Clock, Award, ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const DOC_IMAGES = {
-  'doc1': 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=80',
-  'doc2': 'https://images.unsplash.com/photo-1612349317150-e410f624c427?auto=format&fit=crop&w=500&q=80',
-  'doc3': 'https://images.unsplash.com/photo-1594824436998-d8ac6134b223?auto=format&fit=crop&w=500&q=80',
-  'doc4': 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80'
-};
-
 const DoctorCard = ({ doctor }) => {
-  const reliableImage = DOC_IMAGES[doctor.id] || doctor.image || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=80';
-  const [imgSrc, setImgSrc] = useState(reliableImage);
+  const fallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(doctor.name || 'Doctor')}&background=0f172a&color=06b6d4&size=512`;
+  const [imgSrc, setImgSrc] = useState(doctor.imageUrl || doctor.image || fallback);
 
   return (
     <div className="bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-slate-100 flex flex-col h-full transform hover:-translate-y-2 relative">
@@ -21,9 +14,7 @@ const DoctorCard = ({ doctor }) => {
         <img 
           src={imgSrc} 
           alt={doctor.name || 'Doctor'} 
-          onError={() => {
-            setImgSrc(`https://ui-avatars.com/api/?name=${encodeURIComponent(doctor.name || 'Doctor')}&background=0f172a&color=06b6d4&size=512`);
-          }}
+          onError={() => setImgSrc(fallback)}
           className="w-full h-full object-cover object-top rounded-[1.5rem] transition-transform duration-700 group-hover:scale-105"
         />
 

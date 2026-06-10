@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { User, Mail, Phone, MapPin, Shield } from 'lucide-react';
+import Modal from '../../components/Modal';
 
 const Profile = () => {
   const { user, updateUserProfileDocs } = useAuth();
@@ -15,6 +16,7 @@ const Profile = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [modal, setModal] = useState({ open: false, type: 'info', title: '', message: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +29,9 @@ const Profile = () => {
         bloodGroup: formData.bloodGroup
       });
       setIsEditing(false);
-      alert('Profile updated successfully!');
+      setModal({ open: true, type: 'success', title: 'Profile Updated', message: 'Your profile has been updated successfully.' });
     } catch (error) {
-      alert('Failed to update profile: ' + error.message);
+      setModal({ open: true, type: 'error', title: 'Update Failed', message: 'Failed to update profile: ' + error.message });
     }
   };
 
@@ -42,6 +44,13 @@ const Profile = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <Modal
+        open={modal.open}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+        onClose={() => setModal({ open: false, type: 'info', title: '', message: '' })}
+      />
       <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Profile Settings</h1>

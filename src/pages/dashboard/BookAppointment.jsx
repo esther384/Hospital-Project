@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Calendar as CalendarIcon, Clock, User } from 'lucide-react';
 import { getDoctors, createAppointment } from '../../services/firebaseServices';
 import { useAuth } from '../../context/AuthContext';
+import Modal from '../../components/Modal';
 
 const BookAppointment = () => {
   const location = useLocation();
@@ -14,6 +15,8 @@ const BookAppointment = () => {
   const [reason, setReason] = useState('');
   const [doctorsData, setDoctorsData] = useState([]);
   const [loadingDocs, setLoadingDocs] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [modal, setModal] = useState({ open: false, type: 'info', title: '', message: '' });
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -37,28 +40,104 @@ const BookAppointment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedDoctor || !date || !time || !user) return;
+    if (!user) return;
+
+    // time slot is not a form input so validate manually
+    if (!time) {
+      setModal({ open: true, type: 'warning', title: 'Select a Time', message: 'Please pick a time slot before confirming your booking.' });
+      return;
+    }
+
+    const selectedDocData = doctorsData.find(d => d.id === selectedDoctor);
+    const doctorName = selectedDocData?.name || 'Unknown Doctor';
+    const doctorSpecialty = selectedDocData?.specialty || '';
     
+    // Safe, cross-browser parsing of date ("YYYY-MM-DD") and time ("HH:MM AM/PM")
+    let scheduledAt = new Date();
+    if (date) {
+      const dateParts = date.split('-');
+      if (dateParts.length === 3) {
+        const year = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1; // 0-indexed month
+        const day = parseInt(dateParts[2], 10);
+        
+        let hours = 9;
+        let minutes = 0;
+        if (time) {
+          const timeParts = time.split(' ');
+          if (timeParts.length === 2) {
+            const hm = timeParts[0].split(':');
+            if (hm.length === 2) {
+              hours = parseInt(hm[0], 10);
+              minutes = parseInt(hm[1], 10);
+              const modifier = timeParts[1];
+              if (modifier === 'PM' && hours < 12) {
+                hours += 12;
+              } else if (modifier === 'AM' && hours === 12) {
+                hours = 0;
+              }
+            }
+          }
+        }
+        
+        const parsedDate = new Date(year, month, day, hours, minutes);
+        if (!isNaN(parsedDate.getTime())) {
+          scheduledAt = parsedDate;
+        }
+      }
+    }
+
+    setSubmitting(true);
     try {
       await createAppointment({
         patientId: user.uid,
-        patientName: user.name || user.email,
+        userId: user.uid,          // used by admin snapshot queries
+        patientName: user.name || user.displayName || user.email || 'Anonymous',
         doctorId: selectedDoctor,
+        doctorName,
+        doctorSpecialty,
         date,
         time,
-        reason,
-        status: 'Upcoming'
+        scheduledAt: scheduledAt,
+        reason: reason || '',
+        status: 'Upcoming',
+        createdAt: new Date(),
       });
-      alert('Appointment requested successfully!');
-      navigate('/dashboard/appointments');
+      setModal({
+        open: true,
+        type: 'success',
+        title: 'Appointment Booked!',
+        message: 'Your appointment has been requested successfully.',
+      });
     } catch (error) {
       console.error(error);
-      alert('Failed to book appointment');
+      setModal({
+        open: true,
+        type: 'error',
+        title: 'Booking Failed',
+        message: 'Failed to book appointment. Please try again.',
+      });
+    } finally {
+      setSubmitting(false);
     }
+  };
+
+  const handleModalClose = () => {
+    const wasSuccess = modal.type === 'success';
+    setModal({ open: false, type: 'info', title: '', message: '' });
+    if (wasSuccess) navigate('/dashboard/appointments');
   };
 
   return (
     <div className="max-w-4xl mx-auto">
+      <Modal
+        open={modal.open}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+        onClose={handleModalClose}
+      />
+
       <div className="mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Book Appointment</h1>
         <p className="text-gray-600 mt-1">Schedule a visit with one of our specialists</p>
@@ -101,7 +180,6 @@ const BookAppointment = () => {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-gray-50 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                    // restrict past dates
                     min={new Date().toISOString().split('T')[0]}
                   />
                 </div>
@@ -142,9 +220,12 @@ const BookAppointment = () => {
           <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3">
             <button
               type="submit"
-              className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-primary/30 transition-colors"
+              disabled={submitting}
+              className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-primary/30 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Confirm Booking
+              {submitting ? (
+                <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />Booking...</>
+              ) : 'Confirm Booking'}
             </button>
           </div>
 

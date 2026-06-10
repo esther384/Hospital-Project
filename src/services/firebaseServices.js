@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import {
   collection,
   getDocs,
@@ -12,7 +12,6 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import {
-  getStorage,
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
@@ -117,11 +116,12 @@ export const onPatientsSnapshot = (callback) => {
 
 export const onAppointmentsSnapshot = (callback, options = {}) => {
   try {
-    let colRef = collection(db, "appointments");
-    let q = colRef;
-    if (options.userId) {
-      q = query(colRef, where("userId", "==", options.userId));
-    }
+    const colRef = collection(db, "appointments");
+    // Support filtering by patientId (stored field) or userId (alias)
+    const patientId = options.patientId || options.userId;
+    const q = patientId
+      ? query(colRef, where("patientId", "==", patientId))
+      : colRef;
     return onSnapshot(
       q,
       (snapshot) => {
@@ -155,7 +155,6 @@ export const getUserById = async (id) => {
 export const uploadFile = async (file, folder = "doctors") => {
   if (!file) return null;
   try {
-    const storage = getStorage();
     const path = `${folder}/${Date.now()}_${file.name}`;
     const ref = storageRef(storage, path);
     await uploadBytes(ref, file);
