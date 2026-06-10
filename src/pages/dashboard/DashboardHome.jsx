@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Calendar, Clock, Activity, FileText, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import FloatingHomeButton from '../../components/FloatingHomeButton';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -10,12 +9,12 @@ const DashboardHome = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mb-10 animate-fade-in-up">
-        <h1 className="text-3xl font-extrabold text-primary tracking-tight mb-2">Patient Dashboard</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-primary tracking-tight mb-2">Patient Dashboard</h1>
         <p className="text-slate-500 font-medium">Welcome back, <span className="text-secondary font-bold">{user?.name || 'Guest'}</span>! Here is your health overview.</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid md:grid-cols-3 gap-6 mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
         <div className="bg-white p-6 rounded-[1.5rem] shadow-sm hover:shadow-lg transition-shadow border border-slate-100 flex items-center space-x-5 relative overflow-hidden group">
           <div className="absolute -right-6 -top-6 w-24 h-24 bg-primary/5 rounded-full pointer-events-none group-hover:scale-150 transition-transform duration-500"></div>
           <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
@@ -50,7 +49,7 @@ const DashboardHome = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
         {/* Next Appointment */}
         <div className="bg-white rounded-[1.5rem] shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col">
           <div className="p-6 border-b border-slate-50 flex justify-between items-center">
@@ -101,7 +100,6 @@ const DashboardHome = () => {
           </div>
         </div>
       </div>
-            <FloatingHomeButton />
     </div>
   );
 };

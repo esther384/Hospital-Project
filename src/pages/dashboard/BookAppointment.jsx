@@ -60,14 +60,14 @@ const BookAppointment = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Book Appointment</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Book Appointment</h1>
         <p className="text-gray-600 mt-1">Schedule a visit with one of our specialists</p>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <form onSubmit={handleSubmit} className="p-8">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-8">
           
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Select Doctor</label>
@@ -139,7 +139,7 @@ const BookAppointment = () => {
             ></textarea>
           </div>
 
-          <div className="pt-6 border-t border-gray-100 flex justify-end">
+          <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3">
             <button
               type="submit"
               className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-primary/30 transition-colors"

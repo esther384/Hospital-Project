@@ -50,7 +50,7 @@ const AppointmentCard = ({ appointment, onCancel, doctorsData }) => {
           </div>
           <div className="flex items-center text-sm font-medium text-gray-700 bg-gray-50 px-3 py-1.5 rounded-lg">
             <MapPin className="w-4 h-4 mr-2 text-gray-500" />
-            Main Hospital
+            ApexCare Medical Centre, Lagos
           </div>
         </div>
       </div>
@@ -116,9 +116,9 @@ const AppointmentsList = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Appointments</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Appointments</h1>
           <p className="text-gray-600 mt-1">View and manage your medical appointments</p>
         </div>
         
@@ -156,7 +156,7 @@ const AppointmentsList = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-12 text-center">
           <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-gray-900 mb-2">No appointments found</h3>
           <p className="text-gray-500">You don't have any {filter !== 'all' ? filter : ''} appointments to display.</p>

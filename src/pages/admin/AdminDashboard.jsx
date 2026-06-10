@@ -3,7 +3,7 @@ import {
   Users,
   Activity,
   Calendar,
-  DollarSign,
+  Banknote,
   TrendingUp,
   MoreVertical,
   HeartPulse,
@@ -14,7 +14,6 @@ import {
   getPatients,
   onAppointmentsSnapshot,
 } from "../../services/firebaseServices";
-import FloatingHomeButton from "../../components/FloatingHomeButton";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -123,8 +122,8 @@ const AdminDashboard = () => {
           },
           {
             title: "Revenue",
-            value: "$45.2k",
-            icon: <DollarSign className="w-6 h-6" />,
+            value: "₦45.2m",
+            icon: <Banknote className="w-6 h-6" />,
             color: "text-emerald-500 bg-emerald-50",
             trend: "+18%",
           },
@@ -291,7 +290,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <FloatingHomeButton />
     </div>
   );
 };

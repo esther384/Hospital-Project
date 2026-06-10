@@ -71,15 +71,15 @@ const Footer = () => {
             <ul className="space-y-4 text-sm mb-8">
               <li className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                <span className="leading-relaxed">450 Apex Medical Plaza, New York, NY 10001</span>
+                <span className="leading-relaxed">450 Apex Medical Plaza, Victoria Island, Lagos 101241</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-secondary shrink-0" />
-                <span className="font-semibold text-white">+1 (555) 123-4567</span>
+                <span className="font-semibold text-white">+234 803 611 8721</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-secondary shrink-0" />
-                <span>contact@apexcare.com</span>
+                <span>contact@apexcare.ng</span>
               </li>
             </ul>
 

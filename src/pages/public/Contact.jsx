@@ -20,7 +20,7 @@ const Contact = () => {
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Phone</h3>
             <p className="text-gray-600">Mon-Fri from 8am to 5pm.</p>
-            <p className="font-semibold text-primary mt-2">+1 (555) 123-4567</p>
+            <p className="font-semibold text-primary mt-2">+234 803 611 8721</p>
           </div>
           
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
@@ -29,7 +29,7 @@ const Contact = () => {
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Email</h3>
             <p className="text-gray-600">Our friendly team is here to help.</p>
-            <p className="font-semibold text-primary mt-2">contact@healthcare.com</p>
+            <p className="font-semibold text-primary mt-2">contact@apexcare.ng</p>
           </div>
           
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
@@ -38,7 +38,7 @@ const Contact = () => {
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Office</h3>
             <p className="text-gray-600">Come say hello at our hospital desk.</p>
-            <p className="font-semibold text-primary mt-2">450 Apex Medical Plaza, New York, NY 10001</p>
+            <p className="font-semibold text-primary mt-2">450 Apex Medical Plaza, Victoria Island, Lagos 101241</p>
           </div>
         </div>
 

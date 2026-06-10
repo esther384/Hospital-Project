@@ -8,8 +8,8 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || 'patient@example.com',
-    phone: '+1 (555) 987-6543',
-    address: '456 Main St, Health City, NY 10002',
+    phone: '+234 801 234 5678',
+    address: '12 Adeola Odeku St, Victoria Island, Lagos 101241',
     dateOfBirth: '1990-05-15',
     bloodGroup: 'O+',
   });
@@ -42,14 +42,14 @@ const Profile = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-8 flex justify-between items-end">
+      <div className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Profile Settings</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Profile Settings</h1>
           <p className="text-gray-600 mt-1">Manage your personal information and preferences</p>
         </div>
         <button 
           onClick={() => setIsEditing(!isEditing)}
-          className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
+          className="self-start sm:self-auto bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors"
         >
           {isEditing ? 'Cancel' : 'Edit Profile'}
         </button>
@@ -68,9 +68,9 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="pt-20 px-8 pb-8">
+        <div className="pt-20 px-4 sm:px-8 pb-8">
           <form onSubmit={handleSubmit}>
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
               
               <div className="space-y-6">
                 <div>
@@ -186,17 +186,17 @@ const Profile = () => {
             </div>
 
             {isEditing && (
-              <div className="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+              <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-medium py-2 px-6 rounded-lg mr-4 transition-colors"
+                  className="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-medium py-2 px-6 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-lg shadow-md transition-colors flex items-center"
+                  className="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-8 rounded-lg shadow-md transition-colors flex items-center justify-center"
                 >
                   <Shield className="w-4 h-4 mr-2" />
                   Save Changes

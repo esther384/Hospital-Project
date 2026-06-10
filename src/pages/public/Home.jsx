@@ -139,8 +139,8 @@ const Home = () => {
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Doctor</label>
                   <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all">
                     <option>Choose Doctor</option>
-                    <option>Dr. Sarah Jenkins</option>
-                    <option>Dr. Michael Chen</option>
+                    <option>Dr. Adaeze Okonkwo</option>
+                    <option>Dr. Emeka Chukwu</option>
                   </select>
                 </div>
                 <div className="space-y-1">
@@ -160,7 +160,7 @@ const Home = () => {
                 <Phone className="w-8 h-8 text-secondary" />
               </div>
               <p className="text-slate-400 text-sm font-medium mb-1">Emergency 24/7</p>
-              <p className="text-white font-extrabold text-lg">+1-800-APEX-CARE</p>
+              <p className="text-white font-extrabold text-lg">+234 803 611 8721</p>
             </div>
           </div>
         </div>
